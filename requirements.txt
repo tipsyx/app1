@@ -1,4 +1,4 @@
 dnspython
-pytz==2023.0
+pytz==2023.2
 Flask==2.2.5
 Werkzeug
