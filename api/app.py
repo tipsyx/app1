@@ -16,10 +16,16 @@ def index():
     print("Received a request to the index route.")
     return "Hello, World!"
 
-@app.route('/api/info', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def get_info():
     slack_name_param = request.args.get('slack_name', slack_name)
     track_param = request.args.get('track', track)
+    
+    if slack_name_param is None:
+        return jsonify({"error": "slack_name parameter is missing"}), 400
+    if track_param is None:
+        return jsonify({"error": "track parameter is missing"}), 400
+        
     current_day = datetime.datetime.now().strftime('%A')
     utc_time = datetime.datetime.now(pytz.UTC)
     utc_time_str = utc_time.strftime('%Y-%m-%dT%H:%M:%SZ')
