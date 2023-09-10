@@ -13,13 +13,13 @@ track = "backend"
 
 @app.route('/')
 def index():
-    response = make_response("", 200)
-    return response
+    print("Received a request to the index route.")
+    return "Hello, World!"
 
 @app.route('/api/info', methods=['GET'])
 def get_info():
-    slack_name = request.args.get('slack_name', slack_name)
-    track = request.args.get('track', track)
+    slack_name_param = request.args.get('slack_name', slack_name)
+    track_param = request.args.get('track', track)
     current_day = datetime.datetime.now().strftime('%A')
     utc_time = datetime.datetime.now(pytz.UTC)
     utc_time_str = utc_time.strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -29,10 +29,10 @@ def get_info():
 
     # JSON response
     response_data = {
-        "slack_name": slack_name,
+        "slack_name": slack_name_param,
         "current_day": current_day,
         "utc_time": utc_time_str,
-        "track": track,
+        "track": track_param,
         "github_file_url": github_file_url,
         "github_repo_url": github_repo_url,
         "status_code": status_code
@@ -41,5 +41,6 @@ def get_info():
     return jsonify(response_data)
 
 if __name__ == "__main__":
-    from werkzeug.serving import run_simple
-    run_simple('localhost', 5000, app, use_reloader=True)
+    print("Starting the Flask application...")
+    app.run(debug=True)
+
