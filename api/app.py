@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 app.json_sort_keys = False
 
-app.secret_key = os.getenv("secret_key")
+
 slack_name = os.getenv("slack_name")
 github_repo_url = os.getenv("github_repo_url")
 github_file_url = os.getenv("github_file_url")
