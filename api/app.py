@@ -1,19 +1,28 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request, make_response
 import datetime
 import pytz
 
 app = Flask(__name__)
+app.json_sort_keys = False
+
+slack_name = "Tipsy0"
+github_repo_url = "https://github.com/tipsyx/app1.git"
+github_file_url = "https://github.com/tipsyx/app1/blob/main/api/app.py"
+track = "backend"
+
+@app.route('/')
+def index():
+    response = make_response("", 200)
+    return response
 
 @app.route('/api/info', methods=['GET'])
 def get_info():
-    slack_name = request.args.get('slack_name', 'Tipsy0')
-    track = request.args.get('track', 'backend')
+    slack_name = request.args.get('slack_name', slack_name)
+    track = request.args.get('track', track)
     current_day = datetime.datetime.now().strftime('%A')
     utc_time = datetime.datetime.now(pytz.UTC)
     utc_time_str = utc_time.strftime('%Y-%m-%dT%H:%M:%SZ')
-    github_repo_url = "https://github.com/tipsyx/app1.git"
-    github_file_url = "https://github.com/tipsyx/app1/blob/main/api/app.py"
-    
+
     # Status Code of Success (HTTP 200)
     status_code = 200
 
@@ -30,5 +39,6 @@ def get_info():
 
     return jsonify(response_data)
 
-if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    from werkzeug.serving import run_simple
+    run_simple('localhost', 5000, app, use_reloader=True)
