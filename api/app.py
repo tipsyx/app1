@@ -11,8 +11,8 @@ def get_info():
     current_day = datetime.datetime.now().strftime('%A')
     utc_time = datetime.datetime.now(pytz.UTC)
     utc_time_str = utc_time.strftime('%Y-%m-%dT%H:%M:%SZ')
-    github_repo_url = "https://github.com/tipsyx/hngtasks.git"
-    github_file_url = "https://github.com/tipsyx/hngtasks/blob/master/api/hngapp1.py"
+    github_repo_url = "https://github.com/tipsyx/app1.git"
+    github_file_url = "https://github.com/tipsyx/app1/blob/main/api/app.py"
     
     # Status Code of Success (HTTP 200)
     status_code = 200
