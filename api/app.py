@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask, jsonify, request, make_response
 import datetime
 import pytz
